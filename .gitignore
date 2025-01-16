@@ -32,4 +32,13 @@ prisma/dev.db-journal
 
 # Replit
 .replit/
-.config/ 
+.config/
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# TypeScript
+*.tsbuildinfo 
