@@ -1,0 +1,6 @@
+npx create-next-app@latest stock-basket-builder --typescript --tailwind --eslint
+cd stock-basket-builder
+npm install @prisma/client @vercel/postgres @tanstack/react-query @mantine/core @mantine/hooks @mantine/form @tabler/icons-react decimal.js
+npm install -D prisma @types/node @types/react @types/react-dom
+npx prisma init 
+npm install recharts @tanstack/react-query-devtools 

@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env.POSTGRES_PRISMA_URL
+  directUrl = env.POSTGRES_URL_NON_POOLING
+}
+
+model Basket {
+  id          String       @id @default(cuid())
+  name        String
+  description String
+  theme       String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  holdings    Holding[]
+  createdBy   String       // User ID
+  isPublic    Boolean      @default(true)
+  metrics     Json?        // Store calculated metrics
+  lastUpdated DateTime?    // Last time metrics were updated
+}
+
+model Holding {
+  id        String   @id @default(cuid())
+  basketId  String
+  basket    Basket   @relation(fields: [basketId], references: [id])
+  symbol    String
+  name      String
+  allocation Decimal
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Stock {
+  id        String   @id @default(cuid())
+  symbol    String   @unique
+  name      String
+  sector    String?
+  industry  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model StockPrice {
+  id        String   @id @default(cuid())
+  symbol    String
+  date      DateTime
+  price     Decimal
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([symbol, date])
+  @@index([symbol, date])
+} 
